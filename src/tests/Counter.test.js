@@ -1,26 +1,31 @@
 import { render, screen } from '@testing-library/react';
-import Counter from './Counter';
+import Counter from '../components/Counter';
 import '../App.css';
-
+import count from '../components/Counter';
+import userEvent from "@testing-library/user-event";
+import '@testing-library/jest-dom'
 
 beforeEach(() => {
   render(<Counter />);
+  const count = screen.getByTestId('count') 
 })
 
 test('renders counter message', () => {
   // Complete the unit test below based on the objective in the line above
-  expect(screen.getByText('Welcome to my website!')).toBeInTheDocument();
+  expect(screen.getByText('Counter')).toBeInTheDocument();
 });
 
 test('should render initial count with value of 0', () => {
-  expect(count).equals(0);
+  expect(screen.getByText('0')).toBeInTheDocument();
   
 });
 
 test('clicking + increments the count', () => {
-  expect(count).equals(1);
+  userEvent.click(screen.getByText('+'));
+  expect(screen.getByText('1')).toBeInTheDocument();
 });
 
 test('clicking - decrements the count', () => {
-  expect(count).equals(-1);
+  userEvent.click(screen.getByText('-'));
+  expect(screen.getByText('-1')).toBeInTheDocument();
 });
